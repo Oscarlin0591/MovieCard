@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyApplicationTheme {
                 Surface {
-                    MovieCard()
+                    MovieCard("The Greatest Showman", "1:45", "English", "7.5", "2k+", 20.dp, modifier = Modifier)
 
                 }
             }
@@ -60,14 +60,16 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun MovieCard() {
+fun MovieCard(
+    title:String, length: String, lang: String, rating: String, reviews: String, padding: Dp, modifier: Modifier = Modifier
+) {
     Box(modifier = Modifier) {
         MovieBGPicture(
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .scale(1f, .9f)
         )
-        MoviePageBody()
+        MoviePageBody(title, length, lang, rating, reviews, padding)
     }
 }
 
@@ -86,10 +88,10 @@ fun MovieBGPicture(modifier: Modifier = Modifier.wrapContentHeight(Alignment.Cen
 }
 
 @Composable
-fun MoviePageBody() {
+fun MoviePageBody(title:String, length: String, lang: String, rating: String, reviews: String, padding: Dp) {
     Box(contentAlignment = Alignment.Center, modifier = Modifier) {
-        MovieHeader()
-        MovieInfo("1:45", "English", "7.5", "2k+", 20.dp, modifier = Modifier)
+        MovieHeader(title)
+        MovieInfo(length, lang, rating, reviews, padding)
     }
 }
 
@@ -115,7 +117,7 @@ fun MovieTitle(title: String, modifier: Modifier = Modifier) {
             .offset(120.dp, 290.dp)
     ) {
         Text(
-            text = "The Greatest Showman",
+            text = title,
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleMedium,
             modifier = modifier.align(alignment = Alignment.CenterHorizontally)
@@ -133,10 +135,10 @@ fun MovieTitle(title: String, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun MovieHeader(modifier: Modifier = Modifier) {
+fun MovieHeader(title: String, modifier: Modifier = Modifier) {
     Box(modifier = Modifier) {
         MoviePicture()
-        MovieTitle("The Greatest Showman")
+        MovieTitle(title)
     }
 }
 
@@ -184,5 +186,5 @@ fun MovieInfo(
 @Preview(showBackground = true)
 @Composable
 fun MovieCardPreview() {
-    MovieCard()
+    MovieCard("The Greatest Showman", "1:45", "English", "7.5", "2k+", 20.dp, modifier = Modifier)
 }
